@@ -1,0 +1,40 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\Brady\Dropbox\Econometrics\Conflict Frequency and Cultural Values\con_freq_value.txt
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 3 Dec 2023, 20:13:45
+{txt}
+{com}. use "sur_con_m_origin"
+{err}{p 0 4 2}
+file {bf:{err}sur_con_m_origin.dta}
+not found
+{p_end}
+{txt}{search r(601), local:r(601);}
+
+end of do-file
+
+{search r(601), local:r(601);}
+
+{com}. do "C:\Users\Brady\AppData\Local\Temp\STD18e0_000000.tmp"
+{txt}
+{com}. ** Set directory and open a log file, and load in merged dataset.**
+. cd "C:\Users\Brady\Dropbox\Econometrics\Conflict Frequency and Cultural Values\Datasets"
+{res}C:\Users\Brady\Dropbox\Econometrics\Conflict Frequency and Cultural Values\Datasets
+{txt}
+{com}. log using "con_freq_value.txt", replace
+{err}log file already open
+{txt}{search r(604), local:r(604);}
+
+end of do-file
+
+{search r(604), local:r(604);}
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\Brady\Dropbox\Econometrics\Conflict Frequency and Cultural Values\con_freq_value.txt
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 3 Dec 2023, 20:14:01
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

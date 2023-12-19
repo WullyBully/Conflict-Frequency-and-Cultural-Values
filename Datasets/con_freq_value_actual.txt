@@ -1,0 +1,345 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\Brady\Dropbox\Econometrics\Conflict Frequency and Cultural Values\Datasets\con_freq_value_actual.txt
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 3 Dec 2023, 21:35:26
+{txt}
+{com}. use "sub_con_m_origin"
+{txt}
+{com}. 
+. ** Reorder and sort data for easier readability.**
+. order index country conflict_duration
+{txt}
+{com}. 
+. ** Further clean data for model building.**
+. 
+. * Drop missing or unusable Survey Answers.
+. replace Q1 = . if Q1 < 0
+{txt}(25 real changes made, 25 to missing)
+
+{com}. replace Q176 = . if Q176 < 0
+{txt}(0 real changes made)
+
+{com}. replace Q179 = . if Q179 < 0
+{txt}(93 real changes made, 93 to missing)
+
+{com}. replace Q191 = . if Q191 < 0
+{txt}(0 real changes made)
+
+{com}. replace Q194 = . if Q194 < 0
+{txt}(0 real changes made)
+
+{com}. replace Q262 = . if Q262 < 0
+{txt}(0 real changes made)
+
+{com}. 
+. * Create some dummy variables.
+. gen low_inc = (incomeWB == 1)
+{txt}
+{com}. gen lmiddle_inc = (incomeWB == 2)
+{txt}
+{com}. gen umiddle_inc = (incomeWB == 3)
+{txt}
+{com}. gen upper_inc = (incomeWB == 4)
+{txt}
+{com}. 
+. ** Summary Statistics **
+. tab Q1
+
+         {txt}Q1 {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          1 {c |}{res}     41,474       91.79       91.79
+{txt}          2 {c |}{res}      3,360        7.44       99.23
+{txt}          3 {c |}{res}        266        0.59       99.81
+{txt}          4 {c |}{res}         84        0.19      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}     45,184      100.00
+{txt}
+{com}. tab Q176
+
+       {txt}Q176 {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          1 {c |}{res}      6,620       14.64       14.64
+{txt}          2 {c |}{res}      2,579        5.70       20.35
+{txt}          3 {c |}{res}      3,713        8.21       28.56
+{txt}          4 {c |}{res}      3,738        8.27       36.83
+{txt}          5 {c |}{res}      7,897       17.47       54.30
+{txt}          6 {c |}{res}      4,987       11.03       65.33
+{txt}          7 {c |}{res}      4,672       10.33       75.66
+{txt}          8 {c |}{res}      4,235        9.37       85.03
+{txt}          9 {c |}{res}      2,125        4.70       89.73
+{txt}         10 {c |}{res}      4,643       10.27      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}     45,209      100.00
+{txt}
+{com}. tab Q179
+
+       {txt}Q179 {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          1 {c |}{res}     32,559       72.17       72.17
+{txt}          2 {c |}{res}      4,350        9.64       81.81
+{txt}          3 {c |}{res}      2,584        5.73       87.54
+{txt}          4 {c |}{res}      1,334        2.96       90.49
+{txt}          5 {c |}{res}      1,620        3.59       94.08
+{txt}          6 {c |}{res}        747        1.66       95.74
+{txt}          7 {c |}{res}        560        1.24       96.98
+{txt}          8 {c |}{res}        449        1.00       97.98
+{txt}          9 {c |}{res}        271        0.60       98.58
+{txt}         10 {c |}{res}        642        1.42      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}     45,116      100.00
+{txt}
+{com}. tab Q191
+
+       {txt}Q191 {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          1 {c |}{res}     30,042       66.45       66.45
+{txt}          2 {c |}{res}      4,943       10.93       77.39
+{txt}          3 {c |}{res}      3,097        6.85       84.24
+{txt}          4 {c |}{res}      1,736        3.84       88.08
+{txt}          5 {c |}{res}      2,465        5.45       93.53
+{txt}          6 {c |}{res}        922        2.04       95.57
+{txt}          7 {c |}{res}        581        1.29       96.85
+{txt}          8 {c |}{res}        476        1.05       97.91
+{txt}          9 {c |}{res}        251        0.56       98.46
+{txt}         10 {c |}{res}        696        1.54      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}     45,209      100.00
+{txt}
+{com}. tab Q194
+
+       {txt}Q194 {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          1 {c |}{res}     30,419       67.29       67.29
+{txt}          2 {c |}{res}      4,692       10.38       77.66
+{txt}          3 {c |}{res}      2,846        6.30       83.96
+{txt}          4 {c |}{res}      1,674        3.70       87.66
+{txt}          5 {c |}{res}      2,408        5.33       92.99
+{txt}          6 {c |}{res}        953        2.11       95.10
+{txt}          7 {c |}{res}        594        1.31       96.41
+{txt}          8 {c |}{res}        548        1.21       97.62
+{txt}          9 {c |}{res}        310        0.69       98.31
+{txt}         10 {c |}{res}        765        1.69      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}     45,209      100.00
+{txt}
+{com}. sum Q262
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 8}Q262 {c |}{res}     45,209    40.67305    15.72635         16        103
+{txt}
+{com}. tab incomeWB
+
+   {txt}incomeWB {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          1 {c |}{res}      2,366        5.23        5.23
+{txt}          2 {c |}{res}     13,859       30.66       35.89
+{txt}          3 {c |}{res}     20,585       45.53       81.42
+{txt}          4 {c |}{res}      8,399       18.58      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}     45,209      100.00
+{txt}
+{com}. sum conflict_duration
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+conflict_d~n {c |}{res}     45,209     14717.3    16221.02          0      72874
+{txt}
+{com}. 
+. ** Generate Models **
+. * First models are based on conflict duration of current country
+. * Question 1 - Is Family Important 1 = Very important 4 = Not important
+. ologit Q1 conflict_duration corrupttransp militaryexp educationexp low_inc  lmiddle_inc upper_inc Q262, robust
+
+{res}{txt}Iteration 0:{space 3}log pseudolikelihood = {res: -14179.39}  
+Iteration 1:{space 3}log pseudolikelihood = {res: -13925.25}  
+Iteration 2:{space 3}log pseudolikelihood = {res:-13907.014}  
+Iteration 3:{space 3}log pseudolikelihood = {res:-13906.964}  
+Iteration 4:{space 3}log pseudolikelihood = {res:-13906.964}  
+{res}
+{txt}{col 1}Ordered logistic regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:45,184}
+{txt}{col 57}{lalign 13:Wald chi2({res:8})}{col 70} = {res}{ralign 6:450.90}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 20:Log pseudolikelihood}{col 21} = {res}{ralign 10:-13906.964}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.0192}
+
+{txt}{hline 18}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 19}{c |}{col 31}    Robust
+{col 1}               Q1{col 19}{c |} Coefficient{col 31}  std. err.{col 43}      z{col 51}   P>|z|{col 59}     [95% con{col 72}f. interval]
+{hline 18}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+conflict_duration {c |}{col 19}{res}{space 2}-9.02e-06{col 31}{space 2} 1.52e-06{col 42}{space 1}   -5.93{col 51}{space 3}0.000{col 59}{space 4} -.000012{col 72}{space 3}-6.04e-06
+{txt}{space 4}corrupttransp {c |}{col 19}{res}{space 2} .0094287{col 31}{space 2} .0019703{col 42}{space 1}    4.79{col 51}{space 3}0.000{col 59}{space 4}  .005567{col 72}{space 3} .0132903
+{txt}{space 6}militaryexp {c |}{col 19}{res}{space 2}-.0000991{col 31}{space 2} .0000112{col 42}{space 1}   -8.83{col 51}{space 3}0.000{col 59}{space 4}-.0001211{col 72}{space 3}-.0000771
+{txt}{space 5}educationexp {c |}{col 19}{res}{space 2} .0000717{col 31}{space 2} 5.77e-06{col 42}{space 1}   12.42{col 51}{space 3}0.000{col 59}{space 4} .0000604{col 72}{space 3}  .000083
+{txt}{space 10}low_inc {c |}{col 19}{res}{space 2}-1.036675{col 31}{space 2} .1424697{col 42}{space 1}   -7.28{col 51}{space 3}0.000{col 59}{space 4} -1.31591{col 72}{space 3}-.7574394
+{txt}{space 6}lmiddle_inc {c |}{col 19}{res}{space 2} .2632159{col 31}{space 2} .0454601{col 42}{space 1}    5.79{col 51}{space 3}0.000{col 59}{space 4} .1741158{col 72}{space 3}  .352316
+{txt}{space 8}upper_inc {c |}{col 19}{res}{space 2} .2650751{col 31}{space 2} .0697675{col 42}{space 1}    3.80{col 51}{space 3}0.000{col 59}{space 4} .1283333{col 72}{space 3} .4018169
+{txt}{space 13}Q262 {c |}{col 19}{res}{space 2}-.0053517{col 31}{space 2} .0011836{col 42}{space 1}   -4.52{col 51}{space 3}0.000{col 59}{space 4}-.0076715{col 72}{space 3}-.0030319
+{txt}{hline 18}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 12}/cut1 {c |}{col 19}{res}{space 2} 2.496502{col 31}{space 2} .0954964{col 59}{space 4} 2.309333{col 72}{space 3} 2.683671
+{txt}{space 12}/cut2 {c |}{col 19}{res}{space 2} 4.947568{col 31}{space 2} .1043865{col 59}{space 4} 4.742974{col 72}{space 3} 5.152162
+{txt}{space 12}/cut3 {c |}{col 19}{res}{space 2} 6.382135{col 31}{space 2} .1427233{col 59}{space 4} 6.102403{col 72}{space 3} 6.661868
+{txt}{hline 18}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. * Question 176 - Trouble deciding which morals are right ones to follow? 1 = completely agree 10 = completely disagree
+. ologit Q176 conflict_duration corrupttransp militaryexp educationexp low_inc  lmiddle_inc upper_inc Q262, robust
+
+{res}{txt}Iteration 0:{space 3}log pseudolikelihood = {res:-101171.74}  
+Iteration 1:{space 3}log pseudolikelihood = {res:-100699.66}  
+Iteration 2:{space 3}log pseudolikelihood = {res:-100699.12}  
+Iteration 3:{space 3}log pseudolikelihood = {res:-100699.12}  
+{res}
+{txt}{col 1}Ordered logistic regression{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:45,209}
+{txt}{col 56}{lalign 13:Wald chi2({res:8})}{col 69} = {res}{ralign 7:1024.00}
+{txt}{col 56}{lalign 13:Prob > chi2}{col 69} = {res}{ralign 7:0.0000}
+{txt}{col 1}{lalign 20:Log pseudolikelihood}{col 21} = {res}{ralign 10:-100699.12}{txt}{col 56}{lalign 13:Pseudo R2}{col 69} = {res}{ralign 7:0.0047}
+
+{txt}{hline 18}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 19}{c |}{col 31}    Robust
+{col 1}             Q176{col 19}{c |} Coefficient{col 31}  std. err.{col 43}      z{col 51}   P>|z|{col 59}     [95% con{col 72}f. interval]
+{hline 18}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+conflict_duration {c |}{col 19}{res}{space 2}-6.47e-07{col 31}{space 2} 6.85e-07{col 42}{space 1}   -0.94{col 51}{space 3}0.345{col 59}{space 4}-1.99e-06{col 72}{space 3} 6.96e-07
+{txt}{space 4}corrupttransp {c |}{col 19}{res}{space 2}-.0203798{col 31}{space 2} .0009312{col 42}{space 1}  -21.89{col 51}{space 3}0.000{col 59}{space 4}-.0222049{col 72}{space 3}-.0185548
+{txt}{space 6}militaryexp {c |}{col 19}{res}{space 2}  .000016{col 31}{space 2} 4.66e-06{col 42}{space 1}    3.43{col 51}{space 3}0.001{col 59}{space 4} 6.85e-06{col 72}{space 3} .0000251
+{txt}{space 5}educationexp {c |}{col 19}{res}{space 2}-.0000157{col 31}{space 2} 2.37e-06{col 42}{space 1}   -6.61{col 51}{space 3}0.000{col 59}{space 4}-.0000203{col 72}{space 3} -.000011
+{txt}{space 10}low_inc {c |}{col 19}{res}{space 2} .0271212{col 31}{space 2} .0490229{col 42}{space 1}    0.55{col 51}{space 3}0.580{col 59}{space 4}-.0689619{col 72}{space 3} .1232043
+{txt}{space 6}lmiddle_inc {c |}{col 19}{res}{space 2}-.4048315{col 31}{space 2} .0223061{col 42}{space 1}  -18.15{col 51}{space 3}0.000{col 59}{space 4}-.4485506{col 72}{space 3}-.3611123
+{txt}{space 8}upper_inc {c |}{col 19}{res}{space 2} .6295846{col 31}{space 2} .0374804{col 42}{space 1}   16.80{col 51}{space 3}0.000{col 59}{space 4} .5561244{col 72}{space 3} .7030448
+{txt}{space 13}Q262 {c |}{col 19}{res}{space 2}  .000052{col 31}{space 2} .0005469{col 42}{space 1}    0.10{col 51}{space 3}0.924{col 59}{space 4}-.0010199{col 72}{space 3} .0011239
+{txt}{hline 18}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 12}/cut1 {c |}{col 19}{res}{space 2}-2.565255{col 31}{space 2} .0462727{col 59}{space 4}-2.655947{col 72}{space 3}-2.474562
+{txt}{space 12}/cut2 {c |}{col 19}{res}{space 2}-2.163085{col 31}{space 2} .0455241{col 59}{space 4} -2.25231{col 72}{space 3}-2.073859
+{txt}{space 12}/cut3 {c |}{col 19}{res}{space 2}-1.709231{col 31}{space 2} .0449348{col 59}{space 4}-1.797302{col 72}{space 3}-1.621161
+{txt}{space 12}/cut4 {c |}{col 19}{res}{space 2}  -1.3257{col 31}{space 2} .0445608{col 59}{space 4}-1.413037{col 72}{space 3}-1.238362
+{txt}{space 12}/cut5 {c |}{col 19}{res}{space 2}-.6024386{col 31}{space 2} .0441522{col 59}{space 4}-.6889754{col 72}{space 3}-.5159018
+{txt}{space 12}/cut6 {c |}{col 19}{res}{space 2}-.1350676{col 31}{space 2} .0440486{col 59}{space 4}-.2214013{col 72}{space 3}-.0487339
+{txt}{space 12}/cut7 {c |}{col 19}{res}{space 2} .3714955{col 31}{space 2}  .044113{col 59}{space 4} .2850356{col 72}{space 3} .4579554
+{txt}{space 12}/cut8 {c |}{col 19}{res}{space 2} .9798098{col 31}{space 2} .0446805{col 59}{space 4} .8922376{col 72}{space 3} 1.067382
+{txt}{space 12}/cut9 {c |}{col 19}{res}{space 2} 1.413121{col 31}{space 2}  .045376{col 59}{space 4} 1.324186{col 72}{space 3} 1.502057
+{txt}{hline 18}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. * Question 179 - Is stealing property justifialbe 1 = never 10 = always
+. ologit Q179 conflict_duration corrupttransp militaryexp educationexp low_inc  lmiddle_inc upper_inc Q262, robust
+
+{res}{txt}Iteration 0:{space 3}log pseudolikelihood = {res:-49978.924}  
+Iteration 1:{space 3}log pseudolikelihood = {res:-49540.303}  
+Iteration 2:{space 3}log pseudolikelihood = {res:-49536.217}  
+Iteration 3:{space 3}log pseudolikelihood = {res:-49536.216}  
+{res}
+{txt}{col 1}Ordered logistic regression{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:45,116}
+{txt}{col 56}{lalign 13:Wald chi2({res:8})}{col 69} = {res}{ralign 7:1012.68}
+{txt}{col 56}{lalign 13:Prob > chi2}{col 69} = {res}{ralign 7:0.0000}
+{txt}{col 1}{lalign 20:Log pseudolikelihood}{col 21} = {res}{ralign 10:-49536.216}{txt}{col 56}{lalign 13:Pseudo R2}{col 69} = {res}{ralign 7:0.0089}
+
+{txt}{hline 18}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 19}{c |}{col 31}    Robust
+{col 1}             Q179{col 19}{c |} Coefficient{col 31}  std. err.{col 43}      z{col 51}   P>|z|{col 59}     [95% con{col 72}f. interval]
+{hline 18}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+conflict_duration {c |}{col 19}{res}{space 2}-.0000145{col 31}{space 2} 8.98e-07{col 42}{space 1}  -16.14{col 51}{space 3}0.000{col 59}{space 4}-.0000163{col 72}{space 3}-.0000127
+{txt}{space 4}corrupttransp {c |}{col 19}{res}{space 2} .0085444{col 31}{space 2} .0013238{col 42}{space 1}    6.45{col 51}{space 3}0.000{col 59}{space 4} .0059499{col 72}{space 3}  .011139
+{txt}{space 6}militaryexp {c |}{col 19}{res}{space 2} .0000129{col 31}{space 2} 5.74e-06{col 42}{space 1}    2.24{col 51}{space 3}0.025{col 59}{space 4} 1.63e-06{col 72}{space 3} .0000241
+{txt}{space 5}educationexp {c |}{col 19}{res}{space 2}-.0000243{col 31}{space 2} 3.07e-06{col 42}{space 1}   -7.91{col 51}{space 3}0.000{col 59}{space 4}-.0000303{col 72}{space 3}-.0000183
+{txt}{space 10}low_inc {c |}{col 19}{res}{space 2}  .731525{col 31}{space 2} .0510772{col 42}{space 1}   14.32{col 51}{space 3}0.000{col 59}{space 4} .6314155{col 72}{space 3} .8316346
+{txt}{space 6}lmiddle_inc {c |}{col 19}{res}{space 2} -.008148{col 31}{space 2} .0284521{col 42}{space 1}   -0.29{col 51}{space 3}0.775{col 59}{space 4}-.0639132{col 72}{space 3} .0476171
+{txt}{space 8}upper_inc {c |}{col 19}{res}{space 2}-.8448635{col 31}{space 2} .0516012{col 42}{space 1}  -16.37{col 51}{space 3}0.000{col 59}{space 4}    -.946{col 72}{space 3}-.7437271
+{txt}{space 13}Q262 {c |}{col 19}{res}{space 2}-.0086074{col 31}{space 2} .0007136{col 42}{space 1}  -12.06{col 51}{space 3}0.000{col 59}{space 4}-.0100061{col 72}{space 3}-.0072086
+{txt}{hline 18}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 12}/cut1 {c |}{col 19}{res}{space 2} .6686984{col 31}{space 2} .0617166{col 59}{space 4} .5477361{col 72}{space 3} .7896607
+{txt}{space 12}/cut2 {c |}{col 19}{res}{space 2} 1.228936{col 31}{space 2} .0619715{col 59}{space 4} 1.107474{col 72}{space 3} 1.350398
+{txt}{space 12}/cut3 {c |}{col 19}{res}{space 2} 1.678775{col 31}{space 2} .0623063{col 59}{space 4} 1.556657{col 72}{space 3} 1.800893
+{txt}{space 12}/cut4 {c |}{col 19}{res}{space 2} 1.984861{col 31}{space 2} .0626366{col 59}{space 4} 1.862096{col 72}{space 3} 2.107627
+{txt}{space 12}/cut5 {c |}{col 19}{res}{space 2} 2.500782{col 31}{space 2} .0639279{col 59}{space 4} 2.375486{col 72}{space 3} 2.626078
+{txt}{space 12}/cut6 {c |}{col 19}{res}{space 2} 2.847875{col 31}{space 2} .0647573{col 59}{space 4} 2.720953{col 72}{space 3} 2.974797
+{txt}{space 12}/cut7 {c |}{col 19}{res}{space 2} 3.206043{col 31}{space 2} .0661905{col 59}{space 4} 3.076312{col 72}{space 3} 3.335774
+{txt}{space 12}/cut8 {c |}{col 19}{res}{space 2}   3.6168{col 31}{space 2} .0687059{col 59}{space 4} 3.482139{col 72}{space 3} 3.751461
+{txt}{space 12}/cut9 {c |}{col 19}{res}{space 2} 3.975297{col 31}{space 2} .0716229{col 59}{space 4} 3.834919{col 72}{space 3} 4.115676
+{txt}{hline 18}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. * Question 191 - Violence against other people 1 = never, 10 = always
+. ologit Q191 conflict_duration corrupttransp militaryexp educationexp low_inc  lmiddle_inc upper_inc Q262, robust
+
+{res}{txt}Iteration 0:{space 3}log pseudolikelihood = {res:-56845.811}  
+Iteration 1:{space 3}log pseudolikelihood = {res:-56506.422}  
+Iteration 2:{space 3}log pseudolikelihood = {res:-56505.173}  
+Iteration 3:{space 3}log pseudolikelihood = {res:-56505.173}  
+{res}
+{txt}{col 1}Ordered logistic regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:45,209}
+{txt}{col 57}{lalign 13:Wald chi2({res:8})}{col 70} = {res}{ralign 6:729.27}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 20:Log pseudolikelihood}{col 21} = {res}{ralign 10:-56505.173}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.0060}
+
+{txt}{hline 18}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 19}{c |}{col 31}    Robust
+{col 1}             Q191{col 19}{c |} Coefficient{col 31}  std. err.{col 43}      z{col 51}   P>|z|{col 59}     [95% con{col 72}f. interval]
+{hline 18}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+conflict_duration {c |}{col 19}{res}{space 2}-9.31e-06{col 31}{space 2} 8.50e-07{col 42}{space 1}  -10.95{col 51}{space 3}0.000{col 59}{space 4} -.000011{col 72}{space 3}-7.64e-06
+{txt}{space 4}corrupttransp {c |}{col 19}{res}{space 2} .0138326{col 31}{space 2} .0012096{col 42}{space 1}   11.44{col 51}{space 3}0.000{col 59}{space 4} .0114619{col 72}{space 3} .0162034
+{txt}{space 6}militaryexp {c |}{col 19}{res}{space 2}-.0000246{col 31}{space 2} 5.57e-06{col 42}{space 1}   -4.42{col 51}{space 3}0.000{col 59}{space 4}-.0000355{col 72}{space 3}-.0000137
+{txt}{space 5}educationexp {c |}{col 19}{res}{space 2}-.0000143{col 31}{space 2} 2.89e-06{col 42}{space 1}   -4.95{col 51}{space 3}0.000{col 59}{space 4}-.0000199{col 72}{space 3}-8.62e-06
+{txt}{space 10}low_inc {c |}{col 19}{res}{space 2} .2761893{col 31}{space 2} .0500862{col 42}{space 1}    5.51{col 51}{space 3}0.000{col 59}{space 4} .1780222{col 72}{space 3} .3743564
+{txt}{space 6}lmiddle_inc {c |}{col 19}{res}{space 2} .1065033{col 31}{space 2} .0262695{col 42}{space 1}    4.05{col 51}{space 3}0.000{col 59}{space 4} .0550162{col 72}{space 3} .1579905
+{txt}{space 8}upper_inc {c |}{col 19}{res}{space 2}-.7146227{col 31}{space 2} .0469254{col 42}{space 1}  -15.23{col 51}{space 3}0.000{col 59}{space 4}-.8065947{col 72}{space 3}-.6226507
+{txt}{space 13}Q262 {c |}{col 19}{res}{space 2} -.008805{col 31}{space 2} .0006591{col 42}{space 1}  -13.36{col 51}{space 3}0.000{col 59}{space 4}-.0100967{col 72}{space 3}-.0075132
+{txt}{hline 18}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 12}/cut1 {c |}{col 19}{res}{space 2} .7016023{col 31}{space 2}  .056818{col 59}{space 4} .5902412{col 72}{space 3} .8129635
+{txt}{space 12}/cut2 {c |}{col 19}{res}{space 2} 1.255685{col 31}{space 2} .0570232{col 59}{space 4} 1.143921{col 72}{space 3} 1.367448
+{txt}{space 12}/cut3 {c |}{col 19}{res}{space 2} 1.705065{col 31}{space 2} .0574799{col 59}{space 4} 1.592407{col 72}{space 3} 1.817724
+{txt}{space 12}/cut4 {c |}{col 19}{res}{space 2} 2.030677{col 31}{space 2} .0578628{col 59}{space 4} 1.917268{col 72}{space 3} 2.144086
+{txt}{space 12}/cut5 {c |}{col 19}{res}{space 2} 2.704366{col 31}{space 2} .0591508{col 59}{space 4} 2.588432{col 72}{space 3} 2.820299
+{txt}{space 12}/cut6 {c |}{col 19}{res}{space 2} 3.105414{col 31}{space 2} .0601267{col 59}{space 4} 2.987567{col 72}{space 3}  3.22326
+{txt}{space 12}/cut7 {c |}{col 19}{res}{space 2} 3.461859{col 31}{space 2} .0613268{col 59}{space 4} 3.341661{col 72}{space 3} 3.582057
+{txt}{space 12}/cut8 {c |}{col 19}{res}{space 2} 3.880479{col 31}{space 2} .0637553{col 59}{space 4} 3.755521{col 72}{space 3} 4.005437
+{txt}{space 12}/cut9 {c |}{col 19}{res}{space 2} 4.194329{col 31}{space 2} .0665389{col 59}{space 4} 4.063915{col 72}{space 3} 4.324743
+{txt}{hline 18}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. * Question 194 - Political Violence 1 = Never 10 = always
+. ologit Q194 conflict_duration corrupttransp militaryexp educationexp low_inc  lmiddle_inc upper_inc Q262, robust
+
+{res}{txt}Iteration 0:{space 3}log pseudolikelihood = {res:-56466.381}  
+Iteration 1:{space 3}log pseudolikelihood = {res:-56247.309}  
+Iteration 2:{space 3}log pseudolikelihood = {res: -56246.69}  
+Iteration 3:{space 3}log pseudolikelihood = {res: -56246.69}  
+{res}
+{txt}{col 1}Ordered logistic regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:45,209}
+{txt}{col 57}{lalign 13:Wald chi2({res:8})}{col 70} = {res}{ralign 6:481.44}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 20:Log pseudolikelihood}{col 21} = {res}{ralign 9:-56246.69}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.0039}
+
+{txt}{hline 18}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 19}{c |}{col 31}    Robust
+{col 1}             Q194{col 19}{c |} Coefficient{col 31}  std. err.{col 43}      z{col 51}   P>|z|{col 59}     [95% con{col 72}f. interval]
+{hline 18}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+conflict_duration {c |}{col 19}{res}{space 2}-.0000102{col 31}{space 2} 8.60e-07{col 42}{space 1}  -11.85{col 51}{space 3}0.000{col 59}{space 4}-.0000119{col 72}{space 3}-8.51e-06
+{txt}{space 4}corrupttransp {c |}{col 19}{res}{space 2} .0038728{col 31}{space 2} .0012036{col 42}{space 1}    3.22{col 51}{space 3}0.001{col 59}{space 4} .0015137{col 72}{space 3} .0062319
+{txt}{space 6}militaryexp {c |}{col 19}{res}{space 2} 4.23e-06{col 31}{space 2} 5.50e-06{col 42}{space 1}    0.77{col 51}{space 3}0.442{col 59}{space 4}-6.54e-06{col 72}{space 3}  .000015
+{txt}{space 5}educationexp {c |}{col 19}{res}{space 2}-.0000181{col 31}{space 2} 2.90e-06{col 42}{space 1}   -6.24{col 51}{space 3}0.000{col 59}{space 4}-.0000238{col 72}{space 3}-.0000124
+{txt}{space 10}low_inc {c |}{col 19}{res}{space 2} .3742241{col 31}{space 2} .0503807{col 42}{space 1}    7.43{col 51}{space 3}0.000{col 59}{space 4} .2754796{col 72}{space 3} .4729685
+{txt}{space 6}lmiddle_inc {c |}{col 19}{res}{space 2}-.0771681{col 31}{space 2} .0264811{col 42}{space 1}   -2.91{col 51}{space 3}0.004{col 59}{space 4}-.1290701{col 72}{space 3}-.0252661
+{txt}{space 8}upper_inc {c |}{col 19}{res}{space 2}-.5045227{col 31}{space 2} .0472076{col 42}{space 1}  -10.69{col 51}{space 3}0.000{col 59}{space 4} -.597048{col 72}{space 3}-.4119975
+{txt}{space 13}Q262 {c |}{col 19}{res}{space 2}-.0065674{col 31}{space 2} .0006615{col 42}{space 1}   -9.93{col 51}{space 3}0.000{col 59}{space 4}-.0078639{col 72}{space 3}-.0052709
+{txt}{hline 18}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 12}/cut1 {c |}{col 19}{res}{space 2} .4028922{col 31}{space 2} .0567155{col 59}{space 4} .2917318{col 72}{space 3} .5140525
+{txt}{space 12}/cut2 {c |}{col 19}{res}{space 2} .9327231{col 31}{space 2} .0568519{col 59}{space 4} .8212953{col 72}{space 3} 1.044151
+{txt}{space 12}/cut3 {c |}{col 19}{res}{space 2} 1.343632{col 31}{space 2}  .057158{col 59}{space 4} 1.231604{col 72}{space 3} 1.455659
+{txt}{space 12}/cut4 {c |}{col 19}{res}{space 2}  1.65032{col 31}{space 2} .0574891{col 59}{space 4} 1.537644{col 72}{space 3} 1.762997
+{txt}{space 12}/cut5 {c |}{col 19}{res}{space 2} 2.276042{col 31}{space 2} .0587645{col 59}{space 4} 2.160866{col 72}{space 3} 2.391218
+{txt}{space 12}/cut6 {c |}{col 19}{res}{space 2}  2.65656{col 31}{space 2} .0597206{col 59}{space 4}  2.53951{col 72}{space 3}  2.77361
+{txt}{space 12}/cut7 {c |}{col 19}{res}{space 2} 2.982463{col 31}{space 2} .0608952{col 59}{space 4} 2.863111{col 72}{space 3} 3.101816
+{txt}{space 12}/cut8 {c |}{col 19}{res}{space 2} 3.407165{col 31}{space 2} .0632023{col 59}{space 4} 3.283291{col 72}{space 3} 3.531039
+{txt}{space 12}/cut9 {c |}{col 19}{res}{space 2} 3.754449{col 31}{space 2} .0658304{col 59}{space 4} 3.625424{col 72}{space 3} 3.883475
+{txt}{hline 18}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\Brady\Dropbox\Econometrics\Conflict Frequency and Cultural Values\Datasets\con_freq_value_actual.txt
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 3 Dec 2023, 21:35:28
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
